@@ -1,0 +1,73 @@
+Ansible - configuration management tool
+
+Installation (ubuntu)
+
+====>       Installation documentation - https://docs.ansible.com/ansible/latest/installation_guide/index.html
+
+
+Step1 :Create two ec2 instance (Ansible_VM,target_VM)
+
+step 2 : create a passwordless authentication for accessing target_VM
+       
+
+        In Ansible_VM
+		
+		==> ssh-keygen -- generate public and private key
+
+		==> copy public key (dirname -- /root/.ssh/id_ed59.pub
+                
+        In Target_VM
+		
+		==> ssh_keygen
+		
+		==> On authorized_keys paste that in publickey
+                
+		==> now you can access without password
+
+
+step 3 : create a file inventory save remote server ip 
+
+step 4 : now run the ansible adhoc commands
+
+
+ ---------- ansible -i inventory[file path]  -m "shell" -a "touch devopsclass"
+
+            i - inventory  -m -- module  -a -- arguements
+
+Read documents for multiple commands in ansible module
+
+When you want to separate ip address in inventory file for configuring differently
+        [webservers]
+	172.168.10.1
+	
+	[dbserver]
+	172.168.20.1
+
+playbook -- its like shell scriptingused to run multiple command
+
+---
+- name: Install and start nginx server
+  hosts: all
+  become : yes
+
+  tasks:
+  - name : Install nginx
+    apt:
+      name : nginx
+      state : present
+
+  - name : Start nginx
+
+    service :
+      name : nginx
+      state : started
+
+run cmd
+==> ansible-playbook -i inventory my_playbook.yml[file path]
+
+
+ 
+
+
+
+

@@ -1,0 +1,55 @@
+Non-interactive user:
+
+===> A Linux user that cannot log in interactively (no shell).
+
+===> Usually used for services or automation tasks.
+
+===> Created using /sbin/nologin or /usr/sbin/nologin as the shell.
+
+===========shell script cmd=====================
+        
+
+=> USERNAME="serviceuser"
+=> SHELL="/sbin/nologin"   # Non-interactive shell or you can use directory as /bin/false
+=> EXPIRE_DATE="2025-10-01"  # Optional expiry
+
+# Create non-interactive user
+useradd -m -s "$SHELL" -e "$EXPIRE_DATE" "$USERNAME"
+
+
+--set with expiry--
+
+===> You can set a specific expiration date for a user using chage -E or useradd -e.
+
+=========== shell commands ==================
+
+=> #!/bin/bash
+=> set -e
+=> set -x
+
+=> # Variables
+=> USERNAME="tempuser"
+=> EXPIRE_DATE="2025-10-05"  # YYYY-MM-DD format
+=> SHELL="/bin/bash"          # interactive shell, change to /sbin/nologin for non-interactive
+
+=> # Create user with expiry
+=> useradd -m -s "$SHELL" -e "$EXPIRE_DATE" "$USERNAME"
+
+=> # Optional: set password
+=> # echo "$USERNAME:Temp@123" | chpasswd
+
+=> # Verify account expiry
+=> echo "User '$USERNAME' created with shell '$SHELL' and expires on $EXPIRE_DATE"
+=> chage -l "$USERNAME"
+
+_________________________________________________
+|                                               |
+|-m → create home directory.                    |
+|                                               |
+|-s /bin/bash → user can log in (interactive).  |
+|                                               |
+|-e YYYY-MM-DD → account expiration date.       |
+|                                               |
+|chage -l → shows expiry details.		|
+|_______________________________________________|
+

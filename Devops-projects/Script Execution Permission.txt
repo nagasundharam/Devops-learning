@@ -1,0 +1,10 @@
+Script Execution permission
+
+  4 - read
+  2 - write
+  1 - execute
+
+777 -- read,write,execution permission
+
+chmod 777 filename
+

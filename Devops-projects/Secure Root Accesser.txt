@@ -1,0 +1,46 @@
+Question :Secure Root access 
+
+
+Reason ==>
+
+ =====>  Why restrict direct root SSH access?
+
+   ======> Security: The root account has full system privileges. If someone guesses or cracks the root password, they have total control.
+	
+   ======> Audit & Accountability: Using normal users + sudo makes it easier to track who did what.
+ 
+   ======> Reduce brute-force attacks: Root is a common target for automated attacks.
+
+
+
+procedure == >
+
+	
+	==> How to restrict root SSH access
+              1️⃣ Open the SSH configuration file
+                     === >sudo nano /etc/ssh/sshd_config
+
+              2️⃣ Find the line with PermitRootLogin
+
+                     It might look like:
+
+                       #PermitRootLogin prohibit-password
+
+
+                     Change it to:
+
+                        PermitRootLogin no
+             
+               This disables root login completely.
+          
+              Optionally you want to allow some people to login
+			
+		      ==>AllowUsers yourusername
+
+
+ Test ==>
+        try to login root@dns_url
+        it will says permission denied
+
+
+
